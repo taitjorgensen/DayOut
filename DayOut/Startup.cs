@@ -20,6 +20,8 @@ namespace DayOut
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+        
         }
 
         public IConfiguration Configuration { get; }
@@ -37,8 +39,8 @@ namespace DayOut
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -71,4 +73,5 @@ namespace DayOut
             });
         }
     }
+
 }
