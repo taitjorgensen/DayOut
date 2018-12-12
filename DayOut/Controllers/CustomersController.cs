@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DayOut.Data;
 using DayOut.Models;
+using DayOut.Class;
 
 namespace DayOut.Controllers
 {
@@ -46,10 +47,16 @@ namespace DayOut.Controllers
         }
 
         // GET: Customers/Create
-        public IActionResult Create()
+        public IActionResult Create(string firstName = "", string lastName = "", bool isValidAddress = true)
         {
-            ViewData["StateId"] = new SelectList(_context.States, "Id", "Id");
-            return View();
+            Customer customer = new Customer()
+            {
+                FirstName = firstName,
+                LastName = lastName
+            };
+            ViewBag.isValid = isValidAddress;
+            ViewData["StateId"] = new SelectList(_context.States, "Id", "Name");
+            return View(customer);
         }
 
         // POST: Customers/Create
@@ -61,7 +68,21 @@ namespace DayOut.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
+                string state = _context.States.Where(s => s.Id == customer.StateId).Select(s => s.Name).Single();
+                if (Geocode.GetLongLat(customer, state))
+                {
+                    if (Geocode.isValidLocation)
+                    {
+                        customer.Latitude = Geocode.latitude;
+                        customer.Longitude = Geocode.longtitude;
+                    }
+                    else
+                    {
+                        return RedirectToAction("Create", new { customer.Id, isValidAddress = false });
+                    }
+                }
+                customer.MemberSince = DateTime.Now;
+                    _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
