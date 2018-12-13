@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DayOut.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181212132611_Initial")]
+    [Migration("20181212132821_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

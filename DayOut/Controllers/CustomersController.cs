@@ -13,7 +13,11 @@ namespace DayOut.Controllers
 {
     public class CustomersController : Controller
     {
-        private readonly ApplicationDbContext _context;
+
+        public ApplicationDbContext _context;
+
+        //private readonly ApplicationDbContext _context;
+
 
         public CustomersController(ApplicationDbContext context)
         {
@@ -68,6 +72,7 @@ namespace DayOut.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 string state = _context.States.Where(s => s.Id == customer.StateId).Select(s => s.Name).Single();
                 if (Geocode.GetLongLat(customer, state))
                 {
@@ -83,6 +88,7 @@ namespace DayOut.Controllers
                 }
                 customer.MemberSince = DateTime.Now;
                     _context.Add(customer);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
