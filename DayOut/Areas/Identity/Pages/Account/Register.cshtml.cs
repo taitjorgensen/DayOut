@@ -89,14 +89,6 @@ namespace DayOut.Areas.Identity.Pages.Account
 
                     await _userManager.AddToRoleAsync(user, StaticDetails.Customer);
 
-                    //if (Input.isSuperAdmin)
-                    //{
-                    //    await _userManager.AddToRoleAsync(user, StaticDetails.SuperAdminEndUser);
-                    //}
-                    //else
-                    //{
-                    //    await _userManager.AddToRoleAsync(user, StaticDetails.AdminEndUser);
-                    //}
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

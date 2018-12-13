@@ -12,6 +12,8 @@ namespace DayOut.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<State> States { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Choice> Choices { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
