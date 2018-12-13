@@ -7,6 +7,8 @@ using DayOut.Class;
 using DayOut.Data;
 using DayOut.Data.Migrations;
 using DayOut.Models;
+using GoogleCategories;
+using GooglePlaceDetails;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -25,7 +27,7 @@ namespace DayOut.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("SelectStartEndTime");
         }
 
         public IActionResult SelectStartEndTime()
@@ -34,16 +36,33 @@ namespace DayOut.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult SelectStartEndTime([Bind("Id, RandEndTime, RandStartTime")] Customer customer)
+        public IActionResult SelectStartEndTime(SelectTimesViewModel selectTimesViewModel)
         {
-            int startTime = db.Times.Where(t => t.Id == customer.RandStartTime).Select(t => t.MilitaryTime).Single();
-            int endTime = db.Times.Where(t => t.Id == customer.RandEndTime).Select(t => t.MilitaryTime).Single();
+            int startTime = db.Times.Where(t => t.Id == selectTimesViewModel.Customer.RandStartTime).Select(t => t.MilitaryTime).Single();
+            int endTime = db.Times.Where(t => t.Id == selectTimesViewModel.Customer.RandEndTime).Select(t => t.MilitaryTime).Single();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Customer customerToUpdate = db.Customers.Where(c => c.UserId == userId).Single();
             customerToUpdate.RandEndTime = endTime;
             customerToUpdate.RandStartTime = startTime;
             customerToUpdate.TimeLeft = TimeCalculations.FindTimeSpan(startTime, endTime);
             db.SaveChanges();
+            return RedirectToAction("SelectCategories");
+        }
+
+        public IActionResult SelectCategories()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
+
+            List<CategoryPlaces> availableCategories = GetCategoriesAvailable.CategoriesAvailable(customer);
+
+            List<List<PlaceDetails>> data = GetAllDetails.ReplaceWithDetails(availableCategories);
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SelectCategories(int bullshit)
+        {
             return View();
         }
     }

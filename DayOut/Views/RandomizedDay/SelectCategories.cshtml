@@ -1,0 +1,28 @@
+﻿@model DayOut.Models.SelectTimesViewModel
+@{
+    ViewData["Title"] = "SelectCategories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SelectCategories</h2>
+
+<div>
+    <table>
+        <tr>
+            <th>
+                @Html.LabelForModel("Category")
+            </th>
+        </tr>
+        @foreach (var item in Model.AllCategoriesWithPlaceDetails)
+        {
+            if (item != null)
+            {
+                <tr>
+                    <td>
+                        @Html.Raw(item[0].Result.Name)
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
