@@ -21,6 +21,11 @@ namespace DayOut.Models
         public int ZipCode { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public DateTime? RandStartTime { get; set; }
+        public DateTime? RandEndTime { get; set; }
+        public DateTime? StructStartTime { get; set; }
+        public DateTime? StructEndTime { get; set; }
+        public Double? TimeLeft { get; set; }
         public DateTime MemberSince { get; set; }
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }

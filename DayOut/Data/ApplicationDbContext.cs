@@ -14,6 +14,7 @@ namespace DayOut.Data
         public DbSet<State> States { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Choice> Choices { get; set; }
+        public DbSet<Time> Times { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
