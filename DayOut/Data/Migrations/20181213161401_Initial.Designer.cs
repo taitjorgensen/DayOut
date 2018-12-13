@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DayOut.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181213132144_CategoryChoice")]
-    partial class CategoryChoice
+    [Migration("20181213161401_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,7 +31,7 @@ namespace DayOut.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("TimeInHours");
+                    b.Property<double>("TimeInHours");
 
                     b.HasKey("Id");
 
@@ -79,9 +79,19 @@ namespace DayOut.Data.Migrations
 
                     b.Property<DateTime>("MemberSince");
 
+                    b.Property<int>("RandEndTime");
+
+                    b.Property<int>("RandStartTime");
+
                     b.Property<int>("StateId");
 
                     b.Property<string>("StreetAddress");
+
+                    b.Property<int>("StructEndTime");
+
+                    b.Property<int>("StructStartTime");
+
+                    b.Property<int>("TimeLeft");
 
                     b.Property<string>("UserId");
 
@@ -107,6 +117,21 @@ namespace DayOut.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("States");
+                });
+
+            modelBuilder.Entity("DayOut.Models.Time", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MilitaryTime");
+
+                    b.Property<string>("StandardTime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Times");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -1,4 +1,4 @@
-﻿
+﻿@model DayOut.Models.Customer
 @{
     ViewData["Title"] = "SelectStartEndTime";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,3 +6,19 @@
 
 <h2>SelectStartEndTime</h2>
 
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SelectStartEndTime">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RandStartTime" class="control-label"></label>
+                <select asp-for="RandStartTime" class="form-control" asp-items="ViewBag.Time"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="RandEndTime" class="control-label"></label>
+                <select asp-for="RandEndTime" class="form-control" asp-items="ViewBag.Time"></select>
+            </div>
+            <input type="submit" value="Submit" class="btn btn-default" />
+        </form>
+    </div>
+</div>

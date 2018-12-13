@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DayOut.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181212201715_ApplicationUserFK")]
-    partial class ApplicationUserFK
+    [Migration("20181213161546_DataSeed")]
+    partial class DataSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,46 @@ namespace DayOut.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DayOut.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Cost");
+
+                    b.Property<string>("Name");
+
+                    b.Property<double>("TimeInHours");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("DayOut.Models.Choice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CurrentDay");
+
+                    b.Property<int>("CustomerId");
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("StartTime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Choices");
+                });
 
             modelBuilder.Entity("DayOut.Models.Customer", b =>
                 {
@@ -39,9 +79,19 @@ namespace DayOut.Data.Migrations
 
                     b.Property<DateTime>("MemberSince");
 
+                    b.Property<int>("RandEndTime");
+
+                    b.Property<int>("RandStartTime");
+
                     b.Property<int>("StateId");
 
                     b.Property<string>("StreetAddress");
+
+                    b.Property<int>("StructEndTime");
+
+                    b.Property<int>("StructStartTime");
+
+                    b.Property<int>("TimeLeft");
 
                     b.Property<string>("UserId");
 
@@ -67,6 +117,21 @@ namespace DayOut.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("States");
+                });
+
+            modelBuilder.Entity("DayOut.Models.Time", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MilitaryTime");
+
+                    b.Property<string>("StandardTime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Times");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -243,6 +308,14 @@ namespace DayOut.Data.Migrations
                     b.ToTable("ApplicationUser");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("DayOut.Models.Choice", b =>
+                {
+                    b.HasOne("DayOut.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DayOut.Models.Customer", b =>

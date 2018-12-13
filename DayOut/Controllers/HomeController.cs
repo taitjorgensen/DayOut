@@ -12,9 +12,6 @@ namespace DayOut.Controllers
     {
         public IActionResult Index()
         {
-            DateTime CurrentDateTime = DateTime.Now;
-            var TimeOnly = CurrentDateTime.TimeOfDay;
-            DateTime FutureTime = new DateTime(1,1,1,14,30,00);
             return View();
         }
         public IActionResult ChooseDayType()
