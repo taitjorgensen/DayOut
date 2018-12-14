@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DayOut.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181213143528_StructRandStartEnd")]
-    partial class StructRandStartEnd
+    [Migration("20181213190935_CustomerRadius")]
+    partial class CustomerRadius
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,17 +79,21 @@ namespace DayOut.Data.Migrations
 
                     b.Property<DateTime>("MemberSince");
 
-                    b.Property<DateTime?>("RandEndTime");
+                    b.Property<double>("Radius");
 
-                    b.Property<DateTime?>("RandStartTime");
+                    b.Property<int>("RandEndTime");
+
+                    b.Property<int>("RandStartTime");
 
                     b.Property<int>("StateId");
 
                     b.Property<string>("StreetAddress");
 
-                    b.Property<DateTime?>("StructEndTime");
+                    b.Property<int>("StructEndTime");
 
-                    b.Property<DateTime?>("StructStartTime");
+                    b.Property<int>("StructStartTime");
+
+                    b.Property<int>("TimeLeft");
 
                     b.Property<string>("UserId");
 
@@ -115,6 +119,21 @@ namespace DayOut.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("States");
+                });
+
+            modelBuilder.Entity("DayOut.Models.Time", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MilitaryTime");
+
+                    b.Property<string>("StandardTime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Times");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

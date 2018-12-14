@@ -2,20 +2,21 @@
 
 namespace DayOut.Data.Migrations
 {
-    public partial class CustomerTimeLeft : Migration
+    public partial class CustomerRadius : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<double>(
-                name: "TimeLeft",
+                name: "Radius",
                 table: "Customers",
-                nullable: true);
+                nullable: false,
+                defaultValue: 0.0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "TimeLeft",
+                name: "Radius",
                 table: "Customers");
         }
     }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DayOut.Data;
 using DayOut.Models;
 using DayOut.Class;
+using System.Security.Claims;
 
 namespace DayOut.Controllers
 {
@@ -87,7 +88,9 @@ namespace DayOut.Controllers
                     }
                 }
                 customer.MemberSince = DateTime.Now;
-                    _context.Add(customer);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customer.UserId = userId;
+                _context.Add(customer);
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -77,19 +77,21 @@ namespace DayOut.Data.Migrations
 
                     b.Property<DateTime>("MemberSince");
 
-                    b.Property<DateTime?>("RandEndTime");
+                    b.Property<double>("Radius");
 
-                    b.Property<DateTime?>("RandStartTime");
+                    b.Property<int>("RandEndTime");
+
+                    b.Property<int>("RandStartTime");
 
                     b.Property<int>("StateId");
 
                     b.Property<string>("StreetAddress");
 
-                    b.Property<DateTime?>("StructEndTime");
+                    b.Property<int>("StructEndTime");
 
-                    b.Property<DateTime?>("StructStartTime");
+                    b.Property<int>("StructStartTime");
 
-                    b.Property<double?>("TimeLeft");
+                    b.Property<int>("TimeLeft");
 
                     b.Property<string>("UserId");
 
