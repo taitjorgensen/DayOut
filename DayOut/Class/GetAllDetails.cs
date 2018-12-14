@@ -9,9 +9,9 @@ namespace DayOut.Class
 {
     public static class GetAllDetails
     {
-        public static List<List<PlaceDetails>> ReplaceWithDetails(List<CategoryPlaces> allCategories)
+        public static List<Tuple<List<PlaceDetails>, string>> ReplaceWithDetails(List<CategoryPlaces> allCategories)
         {
-            List<List<PlaceDetails>> categoriesAndPlaces = new List<List<PlaceDetails>>();
+            List<Tuple<List<PlaceDetails>, string>> categoriesAndPlaces = new List<Tuple<List<PlaceDetails>, string>>();
             List<PlaceDetails> museums = new List<PlaceDetails>();
             List<PlaceDetails> movieTheaters = new List<PlaceDetails>();
             List<PlaceDetails> parks = new List<PlaceDetails>();
@@ -30,8 +30,8 @@ namespace DayOut.Class
                         string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
                         museums.Add(GetObject.LocationDetails(url));
                     }
-                    categoriesAndPlaces.Add(museums);
-
+                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(museums, "museums");
+                    categoriesAndPlaces.Add(final);
                 }
 
                 if (category.name == "Movie Theater")
@@ -41,7 +41,8 @@ namespace DayOut.Class
                         string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
                         movieTheaters.Add(GetObject.LocationDetails(url));
                     }
-                    categoriesAndPlaces.Add(movieTheaters);
+                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(movieTheaters, "movietheaters");
+                    categoriesAndPlaces.Add(final);
                 }
 
                 if (category.name == "Park")
@@ -51,7 +52,8 @@ namespace DayOut.Class
                         string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
                         parks.Add(GetObject.LocationDetails(url));
                     }
-                    categoriesAndPlaces.Add(parks);
+                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(parks, "parks");
+                    categoriesAndPlaces.Add(final);
                 }
 
                 if (category.name == "Restaurant")
@@ -61,7 +63,8 @@ namespace DayOut.Class
                         string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
                         resturants.Add(GetObject.LocationDetails(url));
                     }
-                    categoriesAndPlaces.Add(resturants);
+                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(resturants, "resturants");
+                    categoriesAndPlaces.Add(final);
                 }
 
                 if (category.name == "Cafe")
@@ -71,7 +74,8 @@ namespace DayOut.Class
                         string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
                         cafes.Add(GetObject.LocationDetails(url));
                     }
-                    categoriesAndPlaces.Add(cafes);
+                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(cafes, "cafe");
+                    categoriesAndPlaces.Add(final);
                 }
 
                 if (category.name == "Bowling Alley")
@@ -81,7 +85,8 @@ namespace DayOut.Class
                         string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
                         bowlingAlleys.Add(GetObject.LocationDetails(url));
                     }
-                    categoriesAndPlaces.Add(bowlingAlleys);
+                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(bowlingAlleys, "bowlingalleys");
+                    categoriesAndPlaces.Add(final);
                 }
 
                 if (category.name == "Ice Cream")
@@ -91,7 +96,8 @@ namespace DayOut.Class
                         string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
                         iceCreamShops.Add(GetObject.LocationDetails(url));
                     }
-                    categoriesAndPlaces.Add(iceCreamShops);
+                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(iceCreamShops, "icecreamshops");
+                    categoriesAndPlaces.Add(final);
                 }
 
                 if (category.name == "Mini Golf")
@@ -101,7 +107,8 @@ namespace DayOut.Class
                         string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
                         miniGolfPlaces.Add(GetObject.LocationDetails(url));
                     }
-                    categoriesAndPlaces.Add(miniGolfPlaces);
+                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(miniGolfPlaces, "minigolfplaces");
+                    categoriesAndPlaces.Add(final);
                 }
 
                 if (category.name == "Shopping")
@@ -111,7 +118,8 @@ namespace DayOut.Class
                         string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
                         shoppingMalls.Add(GetObject.LocationDetails(url));
                     }
-                    categoriesAndPlaces.Add(shoppingMalls);
+                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(shoppingMalls, "shoppingmalls");
+                    categoriesAndPlaces.Add(final);
                 }
 
             }

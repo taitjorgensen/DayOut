@@ -56,7 +56,9 @@ namespace DayOut.Controllers
 
             List<CategoryPlaces> availableCategories = GetCategoriesAvailable.CategoriesAvailable(customer);
 
-            List<List<PlaceDetails>> data = GetAllDetails.ReplaceWithDetails(availableCategories);
+            List<Tuple<List<PlaceDetails>, string>> data = GetAllDetails.ReplaceWithDetails(availableCategories);
+
+            List<Tuple<List<PlaceDetails>, string>> finalData = FilterPlacesOpen.ReturnFilteredPlaces(data, customer.RandStartTime, customer.RandEndTime);
 
             return View();
         }
