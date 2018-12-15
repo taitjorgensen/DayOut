@@ -13,19 +13,14 @@ namespace DayOut.Class
         {
 
             List<Tuple<List<PlaceDetails>, string>> categoriesAndPlaces = new List<Tuple<List<PlaceDetails>, string>>();
-            Tuple<List<PlaceDetails>, string> museums = new Tuple<List<PlaceDetails>, string>(null, "");
-            Tuple<List<PlaceDetails>, string> movieTheaters = new Tuple<List<PlaceDetails>, string>(null, "");
-            Tuple<List<PlaceDetails>, string> parks = new Tuple<List<PlaceDetails>, string>(null, "");
-            Tuple<List<PlaceDetails>, string> resturants = new Tuple<List<PlaceDetails>, string>(null, "");
-            Tuple<List<PlaceDetails>, string> cafes = new Tuple<List<PlaceDetails>, string>(null, "");
-            Tuple<List<PlaceDetails>, string> bowlingAlleys = new Tuple<List<PlaceDetails>, string>(null, "");
-            Tuple<List<PlaceDetails>, string> iceCreamShops = new Tuple<List<PlaceDetails>, string>(null, "");
-            Tuple<List<PlaceDetails>, string> miniGolfPlaces = new Tuple<List<PlaceDetails>, string>(null, "");
-            Tuple<List<PlaceDetails>, string> shoppingMalls = new Tuple<List<PlaceDetails>, string>(null, "");
+
             int day = (int)System.DateTime.Now.DayOfWeek;
+
+
             foreach (Tuple<List<PlaceDetails>, string> category in allCategories)
             {
                 List<PlaceDetails> categoryBuild = new List<PlaceDetails>();
+
                 for (int i = 0; i < category.Item1.Count; i++)
                 {
                     if (category.Item2 != "parks")

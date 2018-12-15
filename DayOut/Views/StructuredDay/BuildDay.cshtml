@@ -1,0 +1,24 @@
+﻿@model DayOut.Models.BuildDayViewModel
+@{
+    ViewData["Title"] = "BuildDay";
+}
+
+<h2>BuildDay</h2>
+
+@if (ViewBag.Time == null)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="SelectStartEndTime">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Customer.StructStartTime" class="control-label"></label>
+                    <select asp-for="Customer.StructStartTime" class="form-control" asp-items="ViewBag.Time"></select>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </form>
+        </div>
+    </div>
+}
+
+

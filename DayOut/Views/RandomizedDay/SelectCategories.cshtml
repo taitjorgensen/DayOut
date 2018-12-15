@@ -1,4 +1,4 @@
-﻿@model DayOut.Models.SelectTimesViewModel
+﻿@model DayOut.Models.SelectCategoriesViewModel
 @{
     ViewData["Title"] = "SelectCategories";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,22 +7,31 @@
 <h2>SelectCategories</h2>
 
 <div>
-    <table>
-        <tr>
-            <th>
-                @Html.LabelForModel("Category")
-            </th>
-        </tr>
-        @foreach (var item in Model.AllCategoriesWithPlaceDetails)
-        {
-            if (item != null)
+    <form asp-action="SelectCategories">
+        <table>
+            <tr>
+                <th>
+                    @Html.LabelForModel("Category")
+                </th>
+            </tr>
+            @foreach (var item in Model.Categories)
             {
-                <tr>
-                    <td>
-                        @Html.Raw(item[0].Result.Name)
-                    </td>
-                </tr>
+                if (item != null)
+                {
+                    <tr>
+                        <td>
+                            <input type="hidden" name="selected" value="@item" />
+                            <input type="submit" value="@item" />
+
+                            @*<button type="submit" class="btn btn-warning btn-large" onclick="@Model.Selected = item;" style="width:200px">@Html.Raw(item)</button>
+                            @Html.ActionLink(item, "SelectCategories", "RandomizedDay", new { selectCategoriesViewModel = Model, selected = item }, new { @class = "btn btn-primary btn-large", style = "width:200px" })*@
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </table>
+        </table>
+        <div hidden>
+            @Html.EditorFor(model => model.Categories)
+        </div>
+    </form>
 </div>

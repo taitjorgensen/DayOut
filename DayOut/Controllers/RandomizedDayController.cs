@@ -20,7 +20,6 @@ namespace DayOut.Controllers
 
         //private readonly ApplicationDbContext _context;
 
-
         public RandomizedDayController(ApplicationDbContext context)
         {
             db = context;
@@ -46,26 +45,46 @@ namespace DayOut.Controllers
             customerToUpdate.RandStartTime = startTime;
             customerToUpdate.TimeLeft = TimeCalculations.FindTimeSpan(startTime, endTime);
             db.SaveChanges();
-            return RedirectToAction("SelectCategories");
+
+            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
+            List<CategoryPlaces> availableCategories = GetCategoriesAvailable.CategoriesAvailable(customer);
+            List<Tuple<List<PlaceDetails>, string>> data = GetAllDetails.ReplaceWithDetails(availableCategories);
+            List<Tuple<List<PlaceDetails>, string>> finalData = FilterPlacesOpen.ReturnFilteredPlaces(data, customer.RandStartTime, customer.RandEndTime);
+            List<string> categories = SetAllCategories.FindAllCategories(finalData);
+
+            SelectCategoriesViewModel selectCategoriesViewModel = new SelectCategoriesViewModel() { Customer = customer, Categories = categories};
+
+            // Pass to SelectCategoriesViewModel view
+            return RedirectToAction("SelectCategories", selectCategoriesViewModel);
         }
 
-        public IActionResult SelectCategories()
+        //GET
+        public IActionResult SelectCategories(SelectCategoriesViewModel selectCategoriesViewModel, string selected = "")
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
-
-            List<CategoryPlaces> availableCategories = GetCategoriesAvailable.CategoriesAvailable(customer);
-
-            List<Tuple<List<PlaceDetails>, string>> data = GetAllDetails.ReplaceWithDetails(availableCategories);
-
-            List<Tuple<List<PlaceDetails>, string>> finalData = FilterPlacesOpen.ReturnFilteredPlaces(data, customer.RandStartTime, customer.RandEndTime);
-
-            return View();
+            if (selected != "")
+            {
+                selectCategoriesViewModel.Selected.Add(selected);
+            }
+            return View(selectCategoriesViewModel);
         }
         [HttpPost]
-        public IActionResult SelectCategories(int bullshit)
+        public IActionResult SelectCategories(SelectCategoriesViewModel selectCategoriesViewModel, string selected = "", bool complete = false)
         {
-            return View();
+            if (selected != "")
+            {
+                selectCategoriesViewModel.Selected.Add(selected);
+            }
+            if (complete == true)
+            {
+
+            }
+            else
+            {
+
+            }
+            return View(selectCategoriesViewModel);
         }
     }
+
 }
+
