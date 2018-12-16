@@ -131,7 +131,7 @@ namespace DayOut.Controllers
         {
             SetPlaces();
 
-            return View();
+            return RedirectToAction("DisplayRoute");
         }
 
         private void SetPlaces()
@@ -167,7 +167,7 @@ namespace DayOut.Controllers
                 }
                 try
                 {
-                    newPlace.Address = place.Result.FormattedPhoneNumber;
+                    newPlace.Address = place.Result.FormattedAddress;
                 }
                 catch
                 {
@@ -184,6 +184,18 @@ namespace DayOut.Controllers
                 db.Places.Add(newPlace);
                 db.SaveChanges();
             }
+        }
+
+        public IActionResult DisplayRoute()
+        {
+            DisplayRouteViewModel displayRoute = new DisplayRouteViewModel();
+            displayRoute.Places = db.Places.ToList();
+            displayRoute.Addresses = new List<string>();
+            foreach (Place place in displayRoute.Places)
+            {
+                displayRoute.Addresses.Add(place.Address);
+            }
+            return View(displayRoute);
         }
     }
 
