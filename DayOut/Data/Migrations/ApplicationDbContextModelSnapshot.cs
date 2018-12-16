@@ -108,6 +108,35 @@ namespace DayOut.Data.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("DayOut.Models.Place", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Category");
+
+                    b.Property<double>("Latitude");
+
+                    b.Property<double>("Longitude");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("PlaceId");
+
+                    b.Property<double>("PriceLevel");
+
+                    b.Property<double>("Rating");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Places");
+                });
+
             modelBuilder.Entity("DayOut.Models.SelectedCategory", b =>
                 {
                     b.Property<int>("Id")

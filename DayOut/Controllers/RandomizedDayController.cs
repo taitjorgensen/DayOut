@@ -75,6 +75,10 @@ namespace DayOut.Controllers
         {
             db.Database.ExecuteSqlCommand("TRUNCATE TABLE [SelectedCategories]");
         }
+        private void TruncatePlacesTable()
+        {
+            db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Places]");
+        }
 
         private void SetCategoriesTable(List<string> availableCategories)
         {
@@ -122,6 +126,64 @@ namespace DayOut.Controllers
             ViewBag.OptionsLeft = selectCategoriesViewModel.Categories.Count > 0 ? true : false;
             ViewBag.HasSelected = selectCategoriesViewModel.Selected.Count > 0 ? true : false;
             return View(selectCategoriesViewModel);
+        }
+        public IActionResult BuildRoute()
+        {
+            SetPlaces();
+
+            return View();
+        }
+
+        private void SetPlaces()
+        {
+            List<string> selectedCategories = db.SelectedCategories.Select(c => c.Name).ToList();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
+            List<CategoryPlaces> availableCategories = GetCategoriesAvailable.CategoriesAvailable(customer, selectedCategories);
+            List<Tuple<List<PlaceDetails>, string>> data = GetAllDetails.ReplaceWithDetails(availableCategories);
+            List<Tuple<List<PlaceDetails>, string>> finalData = FilterPlacesOpen.ReturnFilteredPlaces(data, customer.RandStartTime, customer.RandEndTime);
+            TruncatePlacesTable();
+            Random random = new Random();
+            foreach (Tuple<List<PlaceDetails>, string> category in finalData)
+            {
+                PlaceDetails place = category.Item1[random.Next(0, category.Item1.Count - 1)];
+                Place newPlace = new Place()
+                {
+                    Name = place.Result.Name,
+                    PriceLevel = 0,
+                    Category = category.Item2,
+                    Latitude = place.Result.Geometry.Location.Lat,
+                    Longitude = place.Result.Geometry.Location.Lng,
+                    PlaceId = place.Result.PlaceId
+                };
+                string error = "Not Provided";
+                try
+                {
+                    newPlace.PhoneNumber = place.Result.FormattedPhoneNumber;
+                }
+                catch
+                {
+                    newPlace.PhoneNumber = error;
+                }
+                try
+                {
+                    newPlace.Address = place.Result.FormattedPhoneNumber;
+                }
+                catch
+                {
+                    newPlace.Address = error;
+                }
+                try
+                {
+                    newPlace.Rating = place.Result.Rating;
+                }
+                catch
+                {
+                    newPlace.Rating = 0;
+                }
+                db.Places.Add(newPlace);
+                db.SaveChanges();
+            }
         }
     }
 
