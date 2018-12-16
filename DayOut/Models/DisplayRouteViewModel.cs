@@ -9,5 +9,7 @@ namespace DayOut.Models
     {
         public List<Place> Places { get; set; }
         public List<string> Addresses { get; set; }
+
+        public List<string> PlaceLetters { get; set; }
     }
 }

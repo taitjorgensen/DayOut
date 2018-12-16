@@ -3,20 +3,20 @@
     ViewData["Title"] = "ChooseDayType";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<br />
+<br />
 <center>
     <h2>Select your Day Type</h2>
 </center>
 <div style="height:800px">
     <center>
         <div style="padding-top:7em">
+            <div>
                 <button class="btn btn-primary btn-large" style="width:200px" onclick="location.href='@Url.Action("BuildDay", "StructuredDay")';return false;">Structured Day</button>
             </div>
             <div style="padding-top:5%">
                 <button class="btn btn-primary btn-large" style="width:200px" onclick="location.href='@Url.Action("Index", "RandomizedDay")';return false;">Randomized Day</button>
             </div>
-        </div>
-        <div style="padding-top:5%">
-            <button class="btn btn-primary btn-large" style="width:200px" onclick="location.href='@Url.Action("Create", "Customers")';return false;">Randomized Day</button>
-        </div>        
+        </div>      
     </center>
 </div>

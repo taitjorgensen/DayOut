@@ -118,6 +118,8 @@ namespace DayOut.Data.Migrations
 
                     b.Property<string>("Category");
 
+                    b.Property<int>("CustomerId");
+
                     b.Property<double>("Latitude");
 
                     b.Property<double>("Longitude");
@@ -133,6 +135,8 @@ namespace DayOut.Data.Migrations
                     b.Property<double>("Rating");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Places");
                 });
@@ -372,6 +376,14 @@ namespace DayOut.Data.Migrations
                     b.HasOne("DayOut.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("DayOut.Models.Place", b =>
+                {
+                    b.HasOne("DayOut.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -77,7 +77,14 @@ namespace DayOut.Controllers
         }
         private void TruncatePlacesTable()
         {
-            db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Places]");
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
+            List<Place> customerPlaces = db.Places.Where(p => p.CustomerId == customer.Id).ToList();
+            foreach (Place place in customerPlaces)
+            {
+                db.Places.Remove(place);
+                db.SaveChanges();
+            }
         }
 
         private void SetCategoriesTable(List<string> availableCategories)
@@ -154,7 +161,8 @@ namespace DayOut.Controllers
                     Category = category.Item2,
                     Latitude = place.Result.Geometry.Location.Lat,
                     Longitude = place.Result.Geometry.Location.Lng,
-                    PlaceId = place.Result.PlaceId
+                    PlaceId = place.Result.PlaceId,
+                    CustomerId = customer.Id
                 };
                 string error = "Not Provided";
                 try
@@ -188,13 +196,16 @@ namespace DayOut.Controllers
 
         public IActionResult DisplayRoute()
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
             DisplayRouteViewModel displayRoute = new DisplayRouteViewModel();
-            displayRoute.Places = db.Places.ToList();
+            displayRoute.Places = db.Places.Where(p => p.CustomerId == customer.Id).ToList();
             displayRoute.Addresses = new List<string>();
             foreach (Place place in displayRoute.Places)
             {
                 displayRoute.Addresses.Add(place.Address);
             }
+            displayRoute.PlaceLetters = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
             return View(displayRoute);
         }
     }
