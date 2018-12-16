@@ -4,34 +4,80 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>SelectCategories</h2>
-
-<div>
-    <form asp-action="SelectCategories">
+<center>
+    @if (ViewBag.HasSelected == true)
+    {
+        <h2>Selected Categories</h2>
+        <hr />
         <table>
             <tr>
-                <th>
-                    @Html.LabelForModel("Category")
-                </th>
             </tr>
-            @foreach (var item in Model.Categories)
+            @foreach (var item in Model.Selected)
             {
                 if (item != null)
                 {
                     <tr>
                         <td>
-                            <input type="hidden" name="selected" value="@item" />
-                            <input type="submit" value="@item" />
-
-                            @*<button type="submit" class="btn btn-warning btn-large" onclick="@Model.Selected = item;" style="width:200px">@Html.Raw(item)</button>
-                            @Html.ActionLink(item, "SelectCategories", "RandomizedDay", new { selectCategoriesViewModel = Model, selected = item }, new { @class = "btn btn-primary btn-large", style = "width:200px" })*@
+                            <button class="btn btn-default btn-large" style="width:500px">@Html.Raw(item)</button>
                         </td>
+
                     </tr>
                 }
             }
         </table>
-        <div hidden>
-            @Html.EditorFor(model => model.Categories)
+    }
+    @if (ViewBag.TimeLeft == false)
+    {
+        <div>
+            <h3 style="color:red">You are out of time.</h3>
         </div>
-    </form>
-</div>
+    }
+    @if (ViewBag.TimeLeft == true && ViewBag.OptionsLeft == true)
+    {
+        <h2>Select a Category</h2>
+        <hr />
+        <div>
+            <table>
+                <tr>
+                </tr>
+                @foreach (var item in Model.Categories)
+                {
+                    if (item != null)
+                    {
+                        <tr>
+                            <td>
+                                @Html.ActionLink(item, "SelectCategories", "RandomizedDay", new { selected = item }, new { @class = "btn btn-primary btn-large", style = "width:200px" })
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+            <div hidden>
+                @Html.EditorFor(model => model.Categories)
+            </div>
+        </div>
+    }
+        <div>
+            <br />
+            @if (ViewBag.OptionsLeft == false)
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <div style="float:right">
+                            @Html.ActionLink("Submit Route", "SelectCategories", "RandomizedDay", null, new { @class = "btn btn-success btn-large", style = "width:200px" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div style="float:left">
+                            @Html.ActionLink("Restart", "SelectStartEndTime", "RandomizedDay", null, new { @class = "btn btn-primary btn-large", style = "width:200px" })
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.ActionLink("Submit Route", "SelectCategories", "RandomizedDay", null, new { @class = "btn btn-success btn-large", style = "width:200px" })
+            }
+        </div>
+</center>
+

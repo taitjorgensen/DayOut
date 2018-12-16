@@ -27,9 +27,11 @@ namespace DayOut.Data.Migrations
 
                     b.Property<int?>("Cost");
 
+                    b.Property<bool>("IsAvailable");
+
                     b.Property<string>("Name");
 
-                    b.Property<double>("TimeInHours");
+                    b.Property<int>("TimeToDo");
 
                     b.HasKey("Id");
 
@@ -104,6 +106,19 @@ namespace DayOut.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("DayOut.Models.SelectedCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SelectedCategories");
                 });
 
             modelBuilder.Entity("DayOut.Models.State", b =>

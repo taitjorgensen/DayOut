@@ -11,7 +11,8 @@ namespace DayOut.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public double TimeInHours { get; set; }
+        public int TimeToDo { get; set; }
+        public bool IsAvailable { get; set; }
         public int? Cost { get; set; }
 
     }
