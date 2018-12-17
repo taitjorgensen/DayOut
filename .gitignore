@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 *.appsettings.json
-*.APIKey
+
 # User-specific files
 *.suo
 *.user
@@ -329,3 +329,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+#Keys
+
+APIKey.cs
