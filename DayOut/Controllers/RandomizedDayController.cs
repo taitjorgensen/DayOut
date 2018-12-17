@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using DayOut.Class;
 using DayOut.Data;
@@ -197,10 +198,17 @@ namespace DayOut.Controllers
             }
         }
 
-        public async Task<IActionResult> DisplayRoute()
+        public IActionResult DisplayRoute(bool fromSelect = true)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
+            if (fromSelect == false)
+            {
+                if (customer.HasRoute == false)
+                {
+                    return RedirectToAction("Index", "Home", new { hasroute = false });
+                }
+            }
             DisplayRouteViewModel displayRoute = new DisplayRouteViewModel();
             displayRoute.Places = db.Places.Where(p => p.CustomerId == customer.Id).ToList();
             displayRoute.Addresses = new List<string>();
@@ -209,9 +217,15 @@ namespace DayOut.Controllers
                 displayRoute.Addresses.Add(place.Address);
             }
             displayRoute.PlaceLetters = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
-            RunTimes runTimes = new RunTimes(db, customer);
-            await runTimes.SendIf(displayRoute.Places);
 
+            Thread doThis = new Thread(delegate ()
+            {
+                RunTimes runTimes = new RunTimes(db, customer);
+                runTimes.SendIf(displayRoute.Places);
+            });
+            doThis.Start();
+            customer.HasRoute = true;
+            db.SaveChanges();
             return View(displayRoute);
         }
         public IActionResult LoadingGif()

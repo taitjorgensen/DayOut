@@ -19,9 +19,14 @@ namespace DayOut.Controllers
         {
             db = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(bool hasRoute = true)
         {
+            ViewBag.HasRoute = hasRoute;
             return View();
+        }
+        public IActionResult SendToDisplay()
+        {
+            return RedirectToAction("DisplayRoute", "RandomizedDay", new { fromSelect = false});
         }
         public IActionResult ChooseDayType()
         {
@@ -103,6 +108,11 @@ namespace DayOut.Controllers
             RunTimes runTimes = new RunTimes(db, customer);
             await runTimes.SendIf();
             return RedirectToAction("Index");
+        }
+
+        public IActionResult DisplayNoRoute()
+        {
+            return PartialView();
         }
     }
 }

@@ -31,6 +31,7 @@ namespace DayOut.Class
         public Task SendIf(List<Place> places = null)
         {
             bool done = false;
+            bool sentFirst = false;
             if (places == null)
             {
                 places = hardPlaces;
@@ -41,19 +42,16 @@ namespace DayOut.Class
                 DateTime currentTime = DateTime.Now;
                 string militaryTime = currentTime.ToString("HHmm");
                 int currentMilTime = Convert.ToInt32(militaryTime);
+                if (sentFirst == false)
+                {
+                    SMS.SendStartDayOutMessage(customer, places[0]);
+                    sentFirst = true;
+                }
                 if (currentMilTime > customer.RandStartTime)
                 {
-                    for (int i = 0; i < hardPlaces.Count; i++)
-                    {
-                        if (i == 0)
-                        {
-                            SMS.SendStartDayOutMessage(customer, places[i]);
-                        }
-                        else
-                        {
-                            SMS.SendNextStopMessage(customer, places[i]);
-                        }
-
+                    for (int i = 1; i < hardPlaces.Count; i++)
+                    { 
+                        SMS.SendNextStopMessage(customer, places[i]);
                         System.Threading.Thread.Sleep(db.Categories.Where(c => c.Name == places[i].Category).Select(c => c.MiliSecondTime).Single());
                     }
                     done = true;

@@ -28,6 +28,7 @@ namespace DayOut.Models
         public int StructEndTime { get; set; }
         public int TimeLeft { get; set; }
         public double Radius { get; set; }
+        public bool HasRoute { get; set; }
         public DateTime MemberSince { get; set; }
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }

@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
@@ -53,7 +53,26 @@
         </a>
     </div>
 </div>
-<div style="padding-top:3em">
-    <button class="btn btn-primary btn-large" onclick="location.href='@Url.Action("RunSMS", "Home")';return false;">Start SMS</button>
-</div>
+
+
+@*----------------------------------------------*@
+@if (ViewBag.HasRoute == false)
+{
+    <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("DisplayNoRoute", "Home")'></div>
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var url = $('#myModal').data('url');
+        $.get(url, function (data) {
+
+            $("#myModal").html(data);
+            $("#myModal").modal('show');
+        });
+    });
+
+</script>
 
