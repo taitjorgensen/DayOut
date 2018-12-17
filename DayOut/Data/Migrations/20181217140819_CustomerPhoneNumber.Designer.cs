@@ -4,14 +4,16 @@ using DayOut.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DayOut.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181217140819_CustomerPhoneNumber")]
+    partial class CustomerPhoneNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,8 +30,6 @@ namespace DayOut.Data.Migrations
                     b.Property<int?>("Cost");
 
                     b.Property<bool>("IsAvailable");
-
-                    b.Property<int>("MiliSecondTime");
 
                     b.Property<string>("Name");
 
@@ -81,7 +81,7 @@ namespace DayOut.Data.Migrations
 
                     b.Property<DateTime>("MemberSince");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<int>("PhoneNumber");
 
                     b.Property<double>("Radius");
 
@@ -169,19 +169,6 @@ namespace DayOut.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("States");
-                });
-
-            modelBuilder.Entity("DayOut.Models.TestLoop", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Loop");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TestLoops");
                 });
 
             modelBuilder.Entity("DayOut.Models.Time", b =>

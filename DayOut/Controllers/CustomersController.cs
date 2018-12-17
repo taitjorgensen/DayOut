@@ -69,7 +69,7 @@ namespace DayOut.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,StreetAddress,City,StateId,ZipCode,Latitude,Longitude,MemberSince")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,PhoneNumber,StreetAddress,City,StateId,Latitude,Longitude,MemberSince")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,9 @@ namespace DayOut.Controllers
                 _context.Add(customer);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                SMS.SendWelcomeMessage(customer);
+
+                return RedirectToAction("Index", "Home");
             }
             ViewData["StateId"] = new SelectList(_context.States, "Id", "Id", customer.StateId);
             return View(customer);

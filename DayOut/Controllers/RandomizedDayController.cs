@@ -34,7 +34,10 @@ namespace DayOut.Controllers
         {
             Customer customer = new Customer() { RandStartTime = 0800, RandEndTime = 1300 };
             SelectTimesViewModel selectTimesViewModel = new SelectTimesViewModel() { Customer = customer };
-            ViewData["Time"] = new SelectList(db.Times, "Id", "StandardTime");
+            DateTime currentTime = DateTime.Now;
+            string militaryTime = currentTime.ToString("HHmm");
+            int currentMilTime = Convert.ToInt32(militaryTime);
+            ViewData["Time"] = new SelectList(db.Times.Where(t => t.MilitaryTime > currentMilTime), "Id", "StandardTime");
             return View(selectTimesViewModel);
         }
         [HttpPost]
@@ -194,7 +197,7 @@ namespace DayOut.Controllers
             }
         }
 
-        public IActionResult DisplayRoute()
+        public async Task<IActionResult> DisplayRoute()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
@@ -206,8 +209,16 @@ namespace DayOut.Controllers
                 displayRoute.Addresses.Add(place.Address);
             }
             displayRoute.PlaceLetters = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
+            RunTimes runTimes = new RunTimes(db, customer);
+            await runTimes.SendIf(displayRoute.Places);
+
             return View(displayRoute);
         }
+        public IActionResult LoadingGif()
+        {
+            return PartialView();
+        }
+
     }
 
 }

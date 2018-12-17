@@ -17,23 +17,23 @@ namespace DayOut.Class
 
         public static bool GetLongLat(Customer customer, string state)
         {
-            string url = SetUrl(customer, state);
-            string result = GET(url);
-            JObject o = JObject.Parse(result);
-            var lat = o["results"][0]["geometry"]["location"]["lat"];
-            var lng = o["results"][0]["geometry"]["location"]["lng"];
-            var locType = o["results"][0]["geometry"]["location_type"];
-            string locResult = locType.ToString();
-            if (locResult == "ROOFTOP")
-            {
-                isValidLocation = true;
-            }
-            latitude = Convert.ToDouble(lat);
-            longtitude = Convert.ToDouble(lng);
-            return true;
+
             try
             {
-
+                string url = SetUrl(customer, state);
+                string result = GET(url);
+                JObject o = JObject.Parse(result);
+                var lat = o["results"][0]["geometry"]["location"]["lat"];
+                var lng = o["results"][0]["geometry"]["location"]["lng"];
+                var locType = o["results"][0]["geometry"]["location_type"];
+                string locResult = locType.ToString();
+                if (locResult == "ROOFTOP")
+                {
+                    isValidLocation = true;
+                }
+                latitude = Convert.ToDouble(lat);
+                longtitude = Convert.ToDouble(lng);
+                return true;
             }
             catch
             {

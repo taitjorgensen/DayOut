@@ -96,5 +96,13 @@ namespace DayOut.Controllers
             return RedirectToAction("ChooseDayType");
         }
 
+        public async Task<IActionResult> RunSMS()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
+            RunTimes runTimes = new RunTimes(db, customer);
+            await runTimes.SendIf();
+            return RedirectToAction("Index");
+        }
     }
 }
