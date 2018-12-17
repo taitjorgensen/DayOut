@@ -3,6 +3,7 @@
     ViewData["Title"] = "SelectCategories";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <div style="padding-top:3em">
     <center>
         @if (ViewBag.HasSelected == true)
@@ -62,7 +63,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div style="float:right">
-                            @Html.ActionLink("Build Route", "BuildRoute", "RandomizedDay", null, new { @class = "btn btn-success btn-large", style = "width:200px" })
+                            <button class="btn btn-success btn-large" id="Show_Options" style="width:200px">Build Route</button>
+                            
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -74,10 +76,31 @@
             }
             else
             {
-                @Html.ActionLink("Build Route", "BuildRoute", "RandomizedDay", null, new { @class = "btn btn-success btn-large", style = "width:200px" })
+                <button class="btn btn-success btn-large" id="Show_Options" style="width:200px">Build Route</button>
+                
             }
         </div>
     </center>
 </div>
 
 
+@*----------------------------------------------*@
+
+<div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("SelectModeType", "RandomizedDay")'></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#Show_Options').click(function () {
+
+            var url = $('#myModal').data('url');
+            $.get(url, function (data) {
+
+                $("#myModal").html(data);
+                $("#myModal").modal('show');
+            });
+        });
+    });
+
+</script>

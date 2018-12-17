@@ -228,11 +228,45 @@ namespace DayOut.Controllers
             db.SaveChanges();
             return View(displayRoute);
         }
+
+        public IActionResult Surprise(bool fromSelect = true)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
+            if (fromSelect == false)
+            {
+                if (customer.HasRoute == false)
+                {
+                    return RedirectToAction("Index", "Home", new { hasroute = false });
+                }
+            }
+            DisplayRouteViewModel displayRoute = new DisplayRouteViewModel();
+            displayRoute.Places = db.Places.Where(p => p.CustomerId == customer.Id).ToList();
+            displayRoute.Addresses = new List<string>();
+            foreach (Place place in displayRoute.Places)
+            {
+                displayRoute.Addresses.Add(place.Address);
+            }
+            displayRoute.PlaceLetters = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
+
+            Thread doThis = new Thread(delegate ()
+            {
+                RunTimes runTimes = new RunTimes(db, customer);
+                runTimes.SendIf(displayRoute.Places);
+            });
+            doThis.Start();
+            customer.HasRoute = true;
+            db.SaveChanges();
+            return View(displayRoute);
+        }
         public IActionResult LoadingGif()
         {
             return PartialView();
         }
-
+        public IActionResult SelectModeType()
+        {
+            return PartialView();
+        }
     }
 
 }

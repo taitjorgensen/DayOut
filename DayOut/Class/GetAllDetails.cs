@@ -14,7 +14,7 @@ namespace DayOut.Class
             List<PlaceDetails> museums = new List<PlaceDetails>();
             List<PlaceDetails> movieTheaters = new List<PlaceDetails>();
             List<PlaceDetails> parks = new List<PlaceDetails>();
-            List<PlaceDetails> resturants = new List<PlaceDetails>();
+            List<PlaceDetails> restaurants = new List<PlaceDetails>();
             List<PlaceDetails> cafes = new List<PlaceDetails>();
             List<PlaceDetails> bowlingAlleys = new List<PlaceDetails>();
             List<PlaceDetails> iceCreamShops = new List<PlaceDetails>();
@@ -57,9 +57,9 @@ namespace DayOut.Class
                     foreach (var place in category.Results)
                     {
                         string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
-                        resturants.Add(GetObject.LocationDetails(url));
+                        restaurants.Add(GetObject.LocationDetails(url));
                     }
-                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(resturants, "Resturant");
+                    Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(restaurants, "Restaurant");
                     categoriesAndPlaces.Add(final);
                 }
                 if (category.name == "Cafe")

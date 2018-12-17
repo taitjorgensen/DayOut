@@ -12,5 +12,7 @@ namespace DayOut.Class
         public const string TwilioAuthToken = "8b255bde368ac07e01e3bcf44f49968c";
 
         public const string TwilioPhoneNumber = "+14147753495";
+
+        public const string GoogleAPI = "Test";
     }
 }
