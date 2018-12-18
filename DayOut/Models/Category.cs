@@ -13,6 +13,7 @@ namespace DayOut.Models
         public string Name { get; set; }
         public int TimeToDo { get; set; }
         public int MiliSecondTime { get; set; }
+        public int IncramentAmount { get; set; }
         public bool IsAvailable { get; set; }
         public int? Cost { get; set; }
 

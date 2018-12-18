@@ -45,7 +45,7 @@ namespace DayOut.Class
             string address = ReplaceSpaceWithPlus(customer.StreetAddress);
             string city = ReplaceSpaceWithPlus(customer.City);
             string state = statePass;
-            string urlGeocode = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + ",+" + city + ",+" + state + "&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
+            string urlGeocode = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + ",+" + city + ",+" + state + "&key=" + APIKey.GoogleAPI;
             return urlGeocode;
         }
         private static string ReplaceSpaceWithPlus(string address)

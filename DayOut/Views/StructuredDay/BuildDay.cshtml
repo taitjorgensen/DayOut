@@ -3,22 +3,32 @@
     ViewData["Title"] = "BuildDay";
 }
 
-<h2>BuildDay</h2>
+<center>
+    <div style="padding-bottom:1em">
+        <h2>Choose Start Time</h2>
+        <hr />
+    </div>
+</center>
 
-@if (ViewBag.Time == null)
-{
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="SelectStartEndTime">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Customer.StructStartTime" class="control-label"></label>
-                    <select asp-for="Customer.StructStartTime" class="form-control" asp-items="ViewBag.Time"></select>
-                </div>
-                <input type="submit" value="Submit" class="btn btn-default" />
-            </form>
+<div class="row">
+    <div class="col-md-6">
+        <div style="float:right">
+            <h3>Starting Time</h3>
         </div>
     </div>
-}
-
+    <div class="col-md-6">
+        <div style="float:left; padding-top:1em">
+            <form asp-action="BuildDay">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <select asp-for="Customer.StructStartTime" class="form-control" asp-items="ViewBag.Time"></select>
+                </div>
+        </div>
+    </div>
+</div>
+<br />
+<center>
+    <input type="submit" value="Submit" class="btn btn-primary" style="width:10em" />
+</center>
+            </form>
 

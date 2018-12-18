@@ -9,7 +9,8 @@ namespace DayOut.Models
     {
         public List<Place> Places { get; set; }
         public List<string> Addresses { get; set; }
-
+        public List<string> Times { get; set; }
+        public string GoogleAPI { get; set; }
         public List<string> PlaceLetters { get; set; }
     }
 }

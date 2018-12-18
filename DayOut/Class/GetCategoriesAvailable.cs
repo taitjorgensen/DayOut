@@ -24,15 +24,15 @@ namespace DayOut.Class
             CategoryPlaces googleShopping = null;
             if (filteredRequest == null)
             {
-                googleMuseums = GetObject.ListOfLocations(beginingUrl + "&type=museum&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
-                googleMovieTheater = GetObject.ListOfLocations(beginingUrl + "&type=movie_theater&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
-                googlePark = GetObject.ListOfLocations(beginingUrl + "&type=park&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
-                googleRestaurant = GetObject.ListOfLocations(beginingUrl + "&type=restaurant&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
-                googleCafe = GetObject.ListOfLocations(beginingUrl + "&type=cafe&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
-                googleBowlingAlley = GetObject.ListOfLocations(beginingUrl + "&type=bowling_alley&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
-                googleIceCream = GetObject.ListOfLocations(beginingUrl + "&type=food+store&keyword=ice+cream&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
-                googleMiniGolf = GetObject.ListOfLocations(beginingUrl + "&type=point_of_interest&keyword=mini+golf&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
-                googleShopping = GetObject.ListOfLocations(beginingUrl + "&type=shopping_mall&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
+                googleMuseums = GetObject.ListOfLocations(beginingUrl + "&type=museum&key=" + APIKey.GoogleAPI);
+                googleMovieTheater = GetObject.ListOfLocations(beginingUrl + "&type=movie_theater&key=" + APIKey.GoogleAPI);
+                googlePark = GetObject.ListOfLocations(beginingUrl + "&type=park&key=" + APIKey.GoogleAPI);
+                googleRestaurant = GetObject.ListOfLocations(beginingUrl + "&type=restaurant&key=" + APIKey.GoogleAPI);
+                googleCafe = GetObject.ListOfLocations(beginingUrl + "&type=cafe&key=" + APIKey.GoogleAPI);
+                googleBowlingAlley = GetObject.ListOfLocations(beginingUrl + "&type=bowling_alley&key=" + APIKey.GoogleAPI);
+                googleIceCream = GetObject.ListOfLocations(beginingUrl + "&type=food+store&keyword=ice+cream&key=" + APIKey.GoogleAPI);
+                googleMiniGolf = GetObject.ListOfLocations(beginingUrl + "&type=point_of_interest&keyword=mini+golf&key=" + APIKey.GoogleAPI);
+                googleShopping = GetObject.ListOfLocations(beginingUrl + "&type=shopping_mall&key=" + APIKey.GoogleAPI);
             }
             else
             {
@@ -41,31 +41,31 @@ namespace DayOut.Class
                     switch (name)
                     {
                         case "Museum":
-                            googleMuseums = GetObject.ListOfLocations(beginingUrl + "&type=museum&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
+                            googleMuseums = GetObject.ListOfLocations(beginingUrl + "&type=museum&key=" + APIKey.GoogleAPI);
                             break;
                         case "Movie Theater":
-                            googleMovieTheater = GetObject.ListOfLocations(beginingUrl + "&type=movie_theater&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
+                            googleMovieTheater = GetObject.ListOfLocations(beginingUrl + "&type=movie_theater&key=" + APIKey.GoogleAPI);
                             break;
                         case "Park":
-                            googlePark = GetObject.ListOfLocations(beginingUrl + "&type=park&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
+                            googlePark = GetObject.ListOfLocations(beginingUrl + "&type=park&key=" + APIKey.GoogleAPI);
                             break;
                         case "Restaurant":
-                            googleRestaurant = GetObject.ListOfLocations(beginingUrl + "&type=restaurant&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
+                            googleRestaurant = GetObject.ListOfLocations(beginingUrl + "&type=restaurant&key=" + APIKey.GoogleAPI);
                             break;
                         case "Cafe":
-                            googleCafe = GetObject.ListOfLocations(beginingUrl + "&type=cafe&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
+                            googleCafe = GetObject.ListOfLocations(beginingUrl + "&type=cafe&key=" + APIKey.GoogleAPI);
                             break;
                         case "Bowling Alley":
-                            googleBowlingAlley = GetObject.ListOfLocations(beginingUrl + "&type=bowling_alley&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
+                            googleBowlingAlley = GetObject.ListOfLocations(beginingUrl + "&type=bowling_alley&key=" + APIKey.GoogleAPI);
                             break;
                         case "Ice Cream":
-                            googleIceCream = GetObject.ListOfLocations(beginingUrl + "&type=food+store&keyword=ice+cream&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
+                            googleIceCream = GetObject.ListOfLocations(beginingUrl + "&type=food+store&keyword=ice+cream&key=" + APIKey.GoogleAPI);
                             break;
                         case "Mini Golf":
-                            googleMiniGolf = GetObject.ListOfLocations(beginingUrl + "&type=point_of_interest&keyword=mini+golf&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
+                            googleMiniGolf = GetObject.ListOfLocations(beginingUrl + "&type=point_of_interest&keyword=mini+golf&key=" + APIKey.GoogleAPI);
                             break;
                         case "Shopping":
-                            googleShopping = GetObject.ListOfLocations(beginingUrl + "&type=shopping_mall&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s");
+                            googleShopping = GetObject.ListOfLocations(beginingUrl + "&type=shopping_mall&key=" + APIKey.GoogleAPI);
                             break;
                         default:
                             break;

@@ -11,5 +11,6 @@ namespace DayOut.Models
         public Customer Customer { get; set; }
         public List<string> Categories { get; set; }
         public List<string> Selected { get; set; }
+        public List<string> PlaceTime { get; set; }
     }
 }

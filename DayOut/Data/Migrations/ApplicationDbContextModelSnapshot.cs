@@ -27,6 +27,8 @@ namespace DayOut.Data.Migrations
 
                     b.Property<int?>("Cost");
 
+                    b.Property<int>("IncramentAmount");
+
                     b.Property<bool>("IsAvailable");
 
                     b.Property<int>("MiliSecondTime");
@@ -158,6 +160,21 @@ namespace DayOut.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SelectedCategories");
+                });
+
+            modelBuilder.Entity("DayOut.Models.SelectedTimes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Time");
+
+                    b.Property<string>("TimeLabel");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SelectedTimes");
                 });
 
             modelBuilder.Entity("DayOut.Models.State", b =>

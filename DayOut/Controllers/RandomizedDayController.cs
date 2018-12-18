@@ -126,7 +126,10 @@ namespace DayOut.Controllers
                 SelectedCategory selectedCategory = new SelectedCategory() { Name = selected };
                 db.SelectedCategories.Add(selectedCategory);
                 Category category = db.Categories.Where(c => c.Name == selected).Single();
-                category.IsAvailable = false;
+                if (category.Name != "Restaurant")
+                {
+                    category.IsAvailable = false;
+                }
                 customer.TimeLeft -= category.TimeToDo;
                 db.SaveChanges();
             }
@@ -157,7 +160,7 @@ namespace DayOut.Controllers
             Random random = new Random();
             foreach (Tuple<List<PlaceDetails>, string> category in finalData)
             {
-                PlaceDetails place = category.Item1[random.Next(0, category.Item1.Count - 1)];
+                PlaceDetails place = category.Item1[RandomInstance.RandomNumber(0, category.Item1.Count)];
                 Place newPlace = new Place()
                 {
                     Name = place.Result.Name,
@@ -200,6 +203,7 @@ namespace DayOut.Controllers
 
         public IActionResult DisplayRoute(bool fromSelect = true)
         {
+            SetPlaces();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
             if (fromSelect == false)
@@ -212,6 +216,7 @@ namespace DayOut.Controllers
             DisplayRouteViewModel displayRoute = new DisplayRouteViewModel();
             displayRoute.Places = db.Places.Where(p => p.CustomerId == customer.Id).ToList();
             displayRoute.Addresses = new List<string>();
+            displayRoute.GoogleAPI = APIKey.GoogleAPI;
             foreach (Place place in displayRoute.Places)
             {
                 displayRoute.Addresses.Add(place.Address);
@@ -223,7 +228,7 @@ namespace DayOut.Controllers
                 RunTimes runTimes = new RunTimes(db, customer);
                 runTimes.SendIf(displayRoute.Places);
             });
-            doThis.Start();
+            //doThis.Start();
             customer.HasRoute = true;
             db.SaveChanges();
             return View(displayRoute);
@@ -231,6 +236,7 @@ namespace DayOut.Controllers
 
         public IActionResult Surprise(bool fromSelect = true)
         {
+            SetPlaces();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
             if (fromSelect == false)
@@ -243,6 +249,7 @@ namespace DayOut.Controllers
             DisplayRouteViewModel displayRoute = new DisplayRouteViewModel();
             displayRoute.Places = db.Places.Where(p => p.CustomerId == customer.Id).ToList();
             displayRoute.Addresses = new List<string>();
+            displayRoute.GoogleAPI = APIKey.GoogleAPI;
             foreach (Place place in displayRoute.Places)
             {
                 displayRoute.Addresses.Add(place.Address);
@@ -254,7 +261,7 @@ namespace DayOut.Controllers
                 RunTimes runTimes = new RunTimes(db, customer);
                 runTimes.SendIf(displayRoute.Places);
             });
-            doThis.Start();
+            //doThis.Start();
             customer.HasRoute = true;
             db.SaveChanges();
             return View(displayRoute);

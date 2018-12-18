@@ -26,7 +26,7 @@ namespace DayOut.Class
                 {
                     foreach (var place in category.Results)
                     {
-                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
+                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=" + APIKey.GoogleAPI;
                         museums.Add(GetObject.LocationDetails(url));
                     }
                     Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(museums, "Museum");
@@ -36,7 +36,7 @@ namespace DayOut.Class
                 {
                     foreach (var place in category.Results)
                     {
-                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
+                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=" + APIKey.GoogleAPI;
                         movieTheaters.Add(GetObject.LocationDetails(url));
                     }
                     Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(movieTheaters, "Movie Theater");
@@ -46,7 +46,7 @@ namespace DayOut.Class
                 {
                     foreach (var place in category.Results)
                     {
-                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
+                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=" + APIKey.GoogleAPI;
                         parks.Add(GetObject.LocationDetails(url));
                     }
                     Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(parks, "Park");
@@ -56,7 +56,7 @@ namespace DayOut.Class
                 {
                     foreach (var place in category.Results)
                     {
-                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
+                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=" + APIKey.GoogleAPI;
                         restaurants.Add(GetObject.LocationDetails(url));
                     }
                     Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(restaurants, "Restaurant");
@@ -66,7 +66,7 @@ namespace DayOut.Class
                 {
                     foreach (var place in category.Results)
                     {
-                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
+                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=" + APIKey.GoogleAPI;
                         cafes.Add(GetObject.LocationDetails(url));
                     }
                     Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(cafes, "Cafe");
@@ -76,7 +76,7 @@ namespace DayOut.Class
                 {
                     foreach (var place in category.Results)
                     {
-                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
+                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=" + APIKey.GoogleAPI;
                         bowlingAlleys.Add(GetObject.LocationDetails(url));
                     }
                     Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(bowlingAlleys, "Bowling Alley");
@@ -86,7 +86,7 @@ namespace DayOut.Class
                 {
                     foreach (var place in category.Results)
                     {
-                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
+                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=" + APIKey.GoogleAPI;
                         iceCreamShops.Add(GetObject.LocationDetails(url));
                     }
                     Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(iceCreamShops, "Ice Cream");
@@ -96,7 +96,7 @@ namespace DayOut.Class
                 {
                     foreach (var place in category.Results)
                     {
-                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
+                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=" + APIKey.GoogleAPI;
                         miniGolfPlaces.Add(GetObject.LocationDetails(url));
                     }
                     Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(miniGolfPlaces, "Mini Golf");
@@ -106,7 +106,7 @@ namespace DayOut.Class
                 {
                     foreach (var place in category.Results)
                     {
-                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=AIzaSyCm51Yofz7jCEmtkvN4mFady9iETRhqm_s";
+                        string url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.PlaceId + "&category=basic,contact&key=" + APIKey.GoogleAPI;
                         shoppingMalls.Add(GetObject.LocationDetails(url));
                     }
                     Tuple<List<PlaceDetails>, string> final = new Tuple<List<PlaceDetails>, string>(shoppingMalls, "Shopping");
