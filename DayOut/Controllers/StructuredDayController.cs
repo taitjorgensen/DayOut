@@ -30,8 +30,8 @@ namespace DayOut.Controllers
             DateTime currentTime = DateTime.Now;
             string militaryTime = currentTime.ToString("HHmm");
             int currentMilTime = Convert.ToInt32(militaryTime);
-            ViewData["Time"] = new SelectList(db.Times, "Id", "StandardTime");
-            //ViewData["Time"] = new SelectList(db.Times.Where(t => t.MilitaryTime > currentMilTime - 50), "Id", "StandardTime");
+            //ViewData["Time"] = new SelectList(db.Times, "Id", "StandardTime");
+            ViewData["Time"] = new SelectList(db.Times.Where(t => t.MilitaryTime > currentMilTime - 100), "Id", "StandardTime");
             return View();
         }
         [HttpPost]
@@ -56,14 +56,7 @@ namespace DayOut.Controllers
         }
         private void TruncatePlacesTable()
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
-            List<Place> customerPlaces = db.Places.Where(p => p.CustomerId == customer.Id).ToList();
-            foreach (Place place in customerPlaces)
-            {
-                db.Places.Remove(place);
-                db.SaveChanges();
-            }
+            db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Places]");
         }
         private void SetCategoriesTable(List<string> availableCategories)
         {
@@ -146,7 +139,10 @@ namespace DayOut.Controllers
 
         public IActionResult DisplayRoute(bool fromSelect = true)
         {
-            SetPlaces();
+            if (fromSelect)
+            {
+                SetPlaces();
+            }
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
             if (fromSelect == false)
@@ -168,6 +164,9 @@ namespace DayOut.Controllers
             }
             displayRoute.PlaceLetters = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M" };
             customer.HasRoute = true;
+            customer.StructuredMode = true;
+            customer.RandomizedMode = false;
+            customer.SurpriseMode = false;
             db.SaveChanges();
             return View(displayRoute);
         }

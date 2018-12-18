@@ -4,31 +4,58 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@*<h2>SelectStartEndTime</h2>
 
-<h2>SelectStartEndTime</h2>
-
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="SelectStartEndTime">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Customer.RandStartTime" class="control-label"></label>
+                    <select asp-for="Customer.RandStartTime" class="form-control" asp-items="ViewBag.Time"></select>
+                </div>
+                <div class="form-group">
+    <a href="~/Views/RandomizedDay/LoadingGif.cshtml">~/Views/RandomizedDay/LoadingGif.cshtml</a>
+                    <label asp-for="Customer.RandEndTime" class="control-label"></label>
+                    <select asp-for="Customer.RandEndTime" class="form-control" asp-items="ViewBag.Time"></select>
+                </div>
+                @Html.HiddenFor(model => model.AllCategoriesWithPlaceDetails)
+                <input type="submit" id="Load_Gif" value="Submit" class="btn btn-default" />
+            </form>
+        </div>
+    </div>*@
+<center>
+    <div style="padding-bottom:1em">
+        <h2>Choose Start and End Times</h2>
+        <hr />
+    </div>
+</center>
 <div class="row">
-    <div class="col-md-12">
-        <form asp-action="SelectStartEndTime">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Customer.RandStartTime" class="control-label"></label>
-                <select asp-for="Customer.RandStartTime" class="form-control" asp-items="ViewBag.Time"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Customer.RandEndTime" class="control-label"></label>
-                <select asp-for="Customer.RandEndTime" class="form-control" asp-items="ViewBag.Time"></select>
-            </div>
-            @Html.HiddenFor(model => model.AllCategoriesWithPlaceDetails)
-            <input type="submit" id="Load_Gif" value="Submit" class="btn btn-default" />
-        </form>
+    <div class="col-md-6">
+        <div style="float:right">
+            <h3>Starting Time</h3>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div style="float:left; padding-top:1em">
+            <form asp-action="SelectStartEndTime">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <select asp-for="Customer.RandStartTime" class="form-control" asp-items="ViewBag.Time"></select>
+                </div>
+                <div class="form-group">
+                    <select asp-for="Customer.RandEndTime" class="form-control" asp-items="ViewBag.Time"></select>
+                </div>
+        </div>
     </div>
 </div>
-
+<br />
+<center>
+    <input type="submit" id="Load_Gif" value="Submit" class="btn btn-primary" style="width:10em" />
+</center>
+           </form>
 @*----------------------------------------------*@
-
 <div class="modal fade" id="myModal" role="dialog" data-url='@Url.Action("LoadingGif", "RandomizedDay")'></div>
-
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -43,5 +70,4 @@
             });
         });
     });
-
-</script>
+ </script>

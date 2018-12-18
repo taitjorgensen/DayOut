@@ -3,41 +3,100 @@
     ViewData["Title"] = "SetStartAddress";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@*<h2>SetStartAddress</h2>
 
-<h2>SetStartAddress</h2>
 
-
+    <center>
+       <div>
+           @if (ViewBag.isValid == false)
+           {
+               <h3 style="color:red">You have entered and invalid address. Please try again.</h3>
+           }
+       </div>
+    </center>
+    <div class="row">
+       <div class="col-md-4">
+           <form asp-action="SetStartAddress">
+               <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+               <div class="form-group">
+                   <label asp-for="StreetAddress" class="control-label"></label>
+                   <input asp-for="StreetAddress" class="form-control" />
+                   <span asp-validation-for="StreetAddress" class="text-danger"></span>
+               </div>
+               <div class="form-group">
+                   <label asp-for="City" class="control-label"></label>
+                   <input asp-for="City" class="form-control" />
+                   <span asp-validation-for="City" class="text-danger"></span>
+               </div>
+               <div class="form-group">
+                   <label asp-for="StateId" class="control-label"></label>
+                   <select asp-for="StateId" class="form-control" asp-items="ViewBag.StateId"></select>
+               </div>
+               <div class="form-group">
+                   <label asp-for="Radius" class="control-label"></label>
+                   <select asp-for="Radius" class="form-control" asp-items="ViewBag.Radii"></select>
+               </div>
+               <input type="submit" value="Create" class="btn btn-default" />
+           </form>
+       </div>
+    </div>*@
 <center>
-    <div>
-        @if (ViewBag.isValid == false)
-        {
-            <h3 style="color:red">You have entered and invalid address. Please try again.</h3>
-        }
+    <div style="padding-bottom:1em">
+        <h2>Starting Address</h2>
+        <hr />
     </div>
 </center>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="SetStartAddress">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="StreetAddress" class="control-label"></label>
-                <input asp-for="StreetAddress" class="form-control" />
-                <span asp-validation-for="StreetAddress" class="text-danger"></span>
+<div class="row" style="display:block">
+    <div class="col-md-6">
+        <div style="float:right">
+            <div>
+                <div>
+                    <h3>Address</h3>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
+            <div>
+                <div>
+                    <h3>City</h3>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="StateId" class="control-label"></label>
-                <select asp-for="StateId" class="form-control" asp-items="ViewBag.StateId"></select>
+            <div>
+                <div>
+                    <h3>State</h3>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Radius" class="control-label"></label>
-                <select asp-for="Radius" class="form-control" asp-items="ViewBag.Radii"></select>
+            <div>
+                <div>
+                    <h3>Radius</h3>
+                </div>
             </div>
-            <input type="submit" value="Create" class="btn btn-default" />
-        </form>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div style="float:left; padding-top:1em">
+            <form asp-action="SetStartAddress">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    @*<label asp-for="StreetAddress" class="control-label"></label>*@
+                    <input asp-for="StreetAddress" class="form-control" />
+                    <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @*<label asp-for="City" class="control-label"></label>*@
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <select asp-for="StateId" class="form-control" asp-items="ViewBag.StateId"></select>
+                </div>
+                <div class="form-group">
+                    <select asp-for="Radius" class="form-control" asp-items="ViewBag.Radii"></select>
+                </div>
+</div>
     </div>
 </div>
+<br />
+<center>
+    <input type="submit" value="Submit" class="btn btn-primary" style="width:10em" />
+</center>
+           </form>

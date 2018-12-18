@@ -93,6 +93,8 @@ namespace DayOut.Data.Migrations
 
                     b.Property<int>("RandStartTime");
 
+                    b.Property<bool>("RandomizedMode");
+
                     b.Property<int>("StateId");
 
                     b.Property<string>("StreetAddress");
@@ -100,6 +102,10 @@ namespace DayOut.Data.Migrations
                     b.Property<int>("StructEndTime");
 
                     b.Property<int>("StructStartTime");
+
+                    b.Property<bool>("StructuredMode");
+
+                    b.Property<bool>("SurpriseMode");
 
                     b.Property<int>("TimeLeft");
 

@@ -38,7 +38,7 @@ namespace DayOut.Controllers
             DateTime currentTime = DateTime.Now;
             string militaryTime = currentTime.ToString("HHmm");
             int currentMilTime = Convert.ToInt32(militaryTime);
-            ViewData["Time"] = new SelectList(db.Times.Where(t => t.MilitaryTime > currentMilTime), "Id", "StandardTime");
+            ViewData["Time"] = new SelectList(db.Times.Where(t => t.MilitaryTime > currentMilTime - 100), "Id", "StandardTime");
             return View(selectTimesViewModel);
         }
         [HttpPost]
@@ -203,7 +203,10 @@ namespace DayOut.Controllers
 
         public IActionResult DisplayRoute(bool fromSelect = true)
         {
-            SetPlaces();
+            if (fromSelect)
+            {
+                SetPlaces();
+            }
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
             if (fromSelect == false)
@@ -223,20 +226,29 @@ namespace DayOut.Controllers
             }
             displayRoute.PlaceLetters = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
 
-            Thread doThis = new Thread(delegate ()
+            if (fromSelect)
             {
-                RunTimes runTimes = new RunTimes(db, customer);
-                runTimes.SendIf(displayRoute.Places);
-            });
-            //doThis.Start();
+                Thread doThis = new Thread(delegate ()
+                {
+                    RunTimes runTimes = new RunTimes(db, customer);
+                    runTimes.SendIf(displayRoute.Places);
+                });
+                doThis.Start();
+            }
             customer.HasRoute = true;
+            customer.StructuredMode = false;
+            customer.RandomizedMode = true;
+            customer.SurpriseMode = false;
             db.SaveChanges();
             return View(displayRoute);
         }
 
         public IActionResult Surprise(bool fromSelect = true)
         {
-            SetPlaces();
+            if (fromSelect)
+            {
+                SetPlaces();
+            }
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
             if (fromSelect == false)
@@ -255,14 +267,19 @@ namespace DayOut.Controllers
                 displayRoute.Addresses.Add(place.Address);
             }
             displayRoute.PlaceLetters = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
-
-            Thread doThis = new Thread(delegate ()
+            if (fromSelect)
             {
-                RunTimes runTimes = new RunTimes(db, customer);
-                runTimes.SendIf(displayRoute.Places);
-            });
-            //doThis.Start();
+                Thread doThis = new Thread(delegate ()
+                {
+                    RunTimes runTimes = new RunTimes(db, customer);
+                    runTimes.SendIf(displayRoute.Places);
+                });
+                doThis.Start();
+            }
             customer.HasRoute = true;
+            customer.StructuredMode = false;
+            customer.RandomizedMode = false;
+            customer.SurpriseMode = true;
             db.SaveChanges();
             return View(displayRoute);
         }

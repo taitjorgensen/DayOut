@@ -17,7 +17,7 @@ namespace DayOut.Models
             TwilioClient.Init(accountSid, authToken);
 
             var message = MessageResource.Create(
-                body: "Your next stop is in 30 minutes. You will be heading to " + choice.Name,
+                body: "Your next stop is in 30 minutes. You will be heading to " + choice.Name + ". At " + choice.Address + " https://www.google.com/maps/place/?q=place_id:" + choice.PlaceId,
                 from: new Twilio.Types.PhoneNumber(APIKey.TwilioPhoneNumber),
                 to: new Twilio.Types.PhoneNumber("+1" + customer.PhoneNumber)
             );

@@ -32,11 +32,11 @@ namespace DayOut.Class
         {
             bool done = false;
             bool sentFirst = false;
+            int j = 0;
             if (places == null)
             {
                 places = hardPlaces;
             }
-
             while(done == false)
             {
                 DateTime currentTime = DateTime.Now;
@@ -49,14 +49,18 @@ namespace DayOut.Class
                 }
                 if (currentMilTime > customer.RandStartTime)
                 {
-                    for (int i = 1; i < hardPlaces.Count; i++)
-                    { 
-                        SMS.SendNextStopMessage(customer, places[i]);
-                        System.Threading.Thread.Sleep(db.Categories.Where(c => c.Name == places[i].Category).Select(c => c.MiliSecondTime).Single());
+                    if (j > 0)
+                    {
+                        for (int i = 1; i < places.Count; i++)
+                        {
+                            SMS.SendNextStopMessage(customer, places[i]);
+                            System.Threading.Thread.Sleep(120000);
+                        }
+                        done = true;
                     }
-                    done = true;
                 }
-                System.Threading.Thread.Sleep(30000);
+                j++;
+                System.Threading.Thread.Sleep(120000);
             }
             return null;
         }

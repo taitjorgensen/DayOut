@@ -26,7 +26,21 @@ namespace DayOut.Controllers
         }
         public IActionResult SendToDisplay()
         {
-            return RedirectToAction("DisplayRoute", "RandomizedDay", new { fromSelect = false});
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
+            if (customer.StructuredMode)
+            {
+                return RedirectToAction("DisplayRoute", "StructuredDay", new { fromSelect = false });
+            }
+            else if (customer.RandomizedMode)
+            {
+                return RedirectToAction("DisplayRoute", "RandomizedDay", new { fromSelect = false });
+            }
+            else
+            {
+                return RedirectToAction("Surprise", "RandomizedDay", new { fromSelect = false });
+            }
+            
         }
         public IActionResult ChooseDayType()
         {
